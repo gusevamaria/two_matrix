@@ -35,9 +35,9 @@ class TaskTracker(JsonWebsocketConsumer):
         #     answer = content.get('answer')
 
         if answer:
-#            old_task = player.get_or_create_task()
             old_task = self.player.get_or_create_task()
             old_task.answer = answer
+            old_task.round_number = self.player.round_number
             old_task.save()
 
             if old_task.answer == old_task.correct_answer:

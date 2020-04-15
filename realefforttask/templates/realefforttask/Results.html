@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Результаты раунда {{ round }}
+{% endblock %}
+
+{% block styles %}
+    <style>
+        th, td {
+            padding: 4px 6px 4px 6px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+        <tr>
+            <th>Участник</th>
+            <th>Ответов</th>
+            <th>Верно</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for player in players %}
+        <tr>
+            <td>P{{ player.id }}</td>
+            <td>{{ player.total }}</td>
+            <td>{{ player.correct }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% next_button %}
+{% endblock %}

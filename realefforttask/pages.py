@@ -1,34 +1,41 @@
-from otree.api import Currency as c, currency_range
-from . import models
 from ._builtin import Page, WaitPage
-from .models import Constants
+from .models import Constants, Task
 
 
 class WorkPage(Page):
     timer_text = 'Оставшееся время до завершения этого раунда:'
     timeout_seconds = Constants.task_time
 
+class WaitForResults(WaitPage):
+    pass
 
-class WaitPage(Page):
-    def is_displayed(self):
-        return self.subsession.round_number == Constants.num_rounds
-
-# class Payoffs(Page):
-#     def is_displayed(self):
-#         return self.subsession.round_number == Constants.num_rounds
-#     def vars_for_template(self):
-#         round = self.session.vars['paying_rounds']
-#         return {"paying_round": str(round)[1:-1],
-#                 "final_payoff": self.participant.payoff_plus_participation_fee(),
-#                 'player_in_all_rounds': self.player.in_all_rounds()}
-
-class MyWaitPage(WaitPage):
-    group_by_arrival_time = True
-    def is_displayed(self):
-        return self.round_number == 1
+class Results(Page):
+    def vars_for_template(self):
+        players = []
+        for p in self.group.get_players():
+            tasks = Task.objects.filter(
+                player=p,
+                round_number=self.round_number
+            )
+            print(p)
+            num_correct = 0
+            for t in tasks:
+                if t.answer == t.correct_answer:
+                    num_correct += 1
+            players.append({
+                'id': p.participant.id_in_session,
+                'total': len(tasks),
+                'correct': num_correct
+            })
+        return {
+            'num_rounds': Constants.num_rounds,
+            'round': self.round_number,
+            'players': players
+        }
 
 
 page_sequence = [
     WorkPage,
-    MyWaitPage,
+    WaitForResults,
+    Results
 ]

@@ -24,7 +24,7 @@ class Constants(BaseConstants):
     players_per_group = 2
     num_rounds = 2
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
-    task_time = 100 #3000
+    task_time = 10
 
 
 class Subsession(BaseSubsession):
@@ -92,8 +92,8 @@ class Task(djmodels.Model):
     class Meta:
         ordering = ['-created_at']
 
-#    player = djmodels.ForeignKey(to=Player, related_name='tasks')
     player = djmodels.ForeignKey(to=Player, related_name='tasks', on_delete=djmodels.CASCADE)
+    round_number = models.IntegerField(null=True)
     body = models.LongStringField()
     html_body = models.LongStringField()
     correct_answer = models.StringField()
