@@ -1,3 +1,4 @@
+import random
 from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range,
@@ -6,6 +7,10 @@ from otree.api import (
 from django.db import models as djmodels
 from django.db.models import F
 from . import ret_functions
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 author = ''
 
@@ -16,14 +21,15 @@ doc = """
 
 class Constants(BaseConstants):
     name_in_url = 'realefforttask'
-    players_per_group = None
-    num_rounds = 1
+    players_per_group = 2
+    num_rounds = 2
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
-    task_time = 3000
+    task_time = 100 #3000
 
 
 class Subsession(BaseSubsession):
     def creating_session(self):
+
         # we look for a corresponding Task Generator in our library (ret_functions.py) that contain all task-generating
         # functions. So the name of the generator in 'task_fun' parameter from settings.py should coincide with an
         # actual task-generating class from ret_functions.
@@ -40,6 +46,8 @@ class Subsession(BaseSubsession):
             p.get_or_create_task()
 
 
+
+
 class Group(BaseGroup):
     ...
 
@@ -53,10 +61,14 @@ class Player(BasePlayer):
     def num_tasks_correct(self):
         return self.tasks.filter(correct_answer=F('answer')).count()
 
+    logger.info(f'Правильных answer: {num_tasks_correct}')
+
     # this method returns total number of tasks to which a player provided an answer
     @property
     def num_tasks_total(self):
         return self.tasks.filter(answer__isnull=False).count()
+
+    logger.info(f'Всего answer: {num_tasks_total}')
 
     # The following method checks if there are any unfinished (with no answer) tasks. If yes, we return the unfinished
     # task. If there are no uncompleted tasks we create a new one using a task-generating function from session settings

@@ -37,6 +37,8 @@ class TaskGenerator:
         self.html_body = self.get_html_body()
         logger.info(f'Correct answer: {self.correct_answer}')
 
+
+
     def get_context_for_body(self):
         return {}
 
@@ -57,6 +59,7 @@ class TwoMatrices(TaskGenerator):
     def get_correct_answer(self):
         return max(self.listx) + max(self.listy)
 
+
     def get_body(self, **kwargs):
         diff = kwargs.get('difficulty', 10)
         self.listx = get_random_list(diff ** 2)
@@ -74,70 +77,68 @@ class TwoMatrices(TaskGenerator):
         }
 
 
-class SumNumbers(TaskGenerator):
-    path_to_render = 'realefforttask/ret_modules/sumnumbers.html'
-    digits_range = (10, 99)
-    name = 'Sum of N numbers'
-
-    def get_correct_answer(self):
-        return sum(self.numbers)
-
-    def get_body(self, **kwargs):
-        num_digits = kwargs.get('num_digits', 2)
-        self.digits_range = kwargs.get('digits_range', self.digits_range)
-        self.numbers = [random.randint(*self.digits_range) for _ in range(num_digits)]
-        return {'numbers': self.numbers}
-
-    def get_context_for_body(self):
-        return {"numbers": self.numbers, }
-
-
-class CountZeroes(TaskGenerator):
-    path_to_render = 'realefforttask/ret_modules/countzeroes.html'
-    name = 'Count 0s in the matrix of digits'
-    def get_correct_answer(self):
-        return self.data.count(str(self.value_to_count))
-
-    def get_body(self, **kwargs):
-        num_rows = kwargs.get('num_rows', 10)
-        num_columns = kwargs.get('num_columns', 10)
-        selection_set = kwargs.get('selection_set', [0, 1])
-        self.value_to_count = kwargs.get('value_to_count', 0)
-        nxm = num_rows * num_columns
-        self.data = [str(random.choice(selection_set)) for _ in range(nxm)]
-        self.mat = chunkify(self.data, num_rows)
-        return {'mat': self.mat}
-
-    def get_context_for_body(self):
-        return {
-            "mat": self.mat,
-            "value_to_count": self.value_to_count,
-        }
-
-
-class Decoding(TaskGenerator):
-    path_to_render = 'realefforttask/ret_modules/decoding.html'
-    name = 'Deconding tasks (numbers to letters)'
-    def get_correct_answer(self):
-        correct_answer = ''.join([self.task_dict[i] for i in self.question])
-        return correct_answer
-
-    def get_body(self, **kwargs):
-        dict_length = kwargs.get('dict_length', 5)
-        task_len = kwargs.get('task_len', 5)
-        digs = random.sample(list(digits), k=dict_length)
-        random.shuffle(digs)
-        lts = random.sample(ascii_lowercase, k=dict_length)
-        self.task_dict = dict(zip(digs, lts))
-        self.question = random.choices(digs, k=task_len)
-
-        return {
-            'question': self.question,
-            'task_dict': self.task_dict,
-        }
-
-    def get_context_for_body(self):
-        return {
-            'question': self.question,
-            'task_dict': self.task_dict,
-        }
+# class SumNumbers(TaskGenerator):
+#     path_to_render = 'realefforttask/ret_modules/sumnumbers.html'
+#     digits_range = (10, 99)
+#     name = 'Sum of N numbers'
+#
+#     def get_correct_answer(self):
+#         return sum(self.numbers)
+#
+#     def get_body(self, **kwargs):
+#         num_digits = kwargs.get('num_digits', 2)
+#         self.digits_range = kwargs.get('digits_range', self.digits_range)
+#         self.numbers = [random.randint(*self.digits_range) for _ in range(num_digits)]
+#         return {'numbers': self.numbers}
+#
+#     def get_context_for_body(self):
+#         return {"numbers": self.numbers, }
+#
+# class CountZeroes(TaskGenerator):
+#     path_to_render = 'realefforttask/ret_modules/countzeroes.html'
+#     name = 'Count 0s in the matrix of digits'
+#     def get_correct_answer(self):
+#         return self.data.count(str(self.value_to_count))
+#
+#     def get_body(self, **kwargs):
+#         num_rows = kwargs.get('num_rows', 10)
+#         num_columns = kwargs.get('num_columns', 10)
+#         selection_set = kwargs.get('selection_set', [0, 1])
+#         self.value_to_count = kwargs.get('value_to_count', 0)
+#         nxm = num_rows * num_columns
+#         self.data = [str(random.choice(selection_set)) for _ in range(nxm)]
+#         self.mat = chunkify(self.data, num_rows)
+#         return {'mat': self.mat}
+#
+#     def get_context_for_body(self):
+#         return {
+#             "mat": self.mat,
+#             "value_to_count": self.value_to_count,
+#         }
+#
+# class Decoding(TaskGenerator):
+#     path_to_render = 'realefforttask/ret_modules/decoding.html'
+#     name = 'Deconding tasks (numbers to letters)'
+#     def get_correct_answer(self):
+#         correct_answer = ''.join([self.task_dict[i] for i in self.question])
+#         return correct_answer
+#
+#     def get_body(self, **kwargs):
+#         dict_length = kwargs.get('dict_length', 5)
+#         task_len = kwargs.get('task_len', 5)
+#         digs = random.sample(list(digits), k=dict_length)
+#         random.shuffle(digs)
+#         lts = random.sample(ascii_lowercase, k=dict_length)
+#         self.task_dict = dict(zip(digs, lts))
+#         self.question = random.choices(digs, k=task_len)
+#
+#         return {
+#             'question': self.question,
+#             'task_dict': self.task_dict,
+#         }
+#
+#     def get_context_for_body(self):
+#         return {
+#             'question': self.question,
+#             'task_dict': self.task_dict,
+#         }

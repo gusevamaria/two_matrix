@@ -30,9 +30,11 @@ SESSION_CONFIGS = [
     #
     # },
     {
+
+
         'name': 'realefforttask',
-        'display_name': 'Real Effort Task - 2 matrices',
-        'num_demo_participants': 1,
+        'display_name': 'Real Effort Task - Two Matrices',
+        'num_demo_participants': 2,
         'app_sequence': ['realefforttask'],
         'task': 'TwoMatrices',
         'task_params': {'difficulty': 5},

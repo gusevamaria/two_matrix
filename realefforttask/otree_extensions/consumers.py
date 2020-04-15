@@ -39,6 +39,13 @@ class TaskTracker(JsonWebsocketConsumer):
             old_task = self.player.get_or_create_task()
             old_task.answer = answer
             old_task.save()
+
+            if old_task.answer == old_task.correct_answer:
+                feedback = "Вы ответили правильно!"
+            else:
+                feedback = "Ваш предыдущий ответ " + old_task.answer + " был неверен, правильный ответ был " + \
+                old_task.correct_answer + ". Будьте внимательны!"
+
             # new_task = player.get_or_create_task()
             # self.send({'task_body': new_task.html_body,
             #            'num_tasks_correct': player.num_tasks_correct,
@@ -48,6 +55,7 @@ class TaskTracker(JsonWebsocketConsumer):
             self.send_json({'task_body': new_task.html_body,
                             'num_tasks_correct': self.player.num_tasks_correct,
                             'num_tasks_total': self.player.num_tasks_total,
+                            'feedback': feedback,
                             })
 
     # def connect(self, message, **kwargs):

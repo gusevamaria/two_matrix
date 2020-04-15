@@ -2,18 +2,21 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Counting task - round {{ view.round_number }}
+    Раунд № {{ view.round_number }}
 {% endblock %}
 
 {% block content %}
     <!--The next line adds the task specific content, getting the file name through the get_or_create_task function.-->
-    <div class="task-container">{{ player.get_or_create_task.html_body|safe }}</div>
-    <div>Your answer is:</div>
-    <input type="text" id="answer" class="offer" style="background-color: white" required>
-    <button class="answer btn btn-outline-dark" type="button" data-feedback="false">Answer</button>
+    <div class="task-container mb-3">{{ player.get_or_create_task.html_body|safe }}</div>
 
-    <p> Tasks attempted so far: <span id="num_tasks_total">{{ player.num_tasks_total }}</span></p>
-    <p> Tasks correct so far: <span id="num_tasks_correct"> {{ player.num_tasks_correct }}</span></p>
+    <div>Ваш ответ:</div>
+    <input type="text" id="answer" class="offer" style="background-color: white" required>
+    <button class="answer btn btn-primary" type="button" data-feedback="false">Answer</button>
+    <br/><br/>
+    <p> Всего ответов: <span id="num_tasks_total">{{ player.num_tasks_total }}</span></p>
+    <p> Правильных ответов: <span id="num_tasks_correct"> {{ player.num_tasks_correct }}</span></p>
+    <div><span id="feedback"> </span></div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -25,8 +28,6 @@
                     return false;
                 }
             });
-
-
         });
     </script>
     {% include 'realefforttask/includes/js_work_page.html' %}
