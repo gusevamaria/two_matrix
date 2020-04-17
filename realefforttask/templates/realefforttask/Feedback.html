@@ -1,13 +1,6 @@
 {% extends "global/Page.html" %}
 {% load staticfiles otree %}
 
-{% block styles %}
-    <style>
-        input[type=number].form-control {
-            max-width: 300px;
-        }
-    </style>
-{% endblock %}
 
 {% block title %}Вопрос на понимание пройден{% endblock %}
 
@@ -23,13 +16,7 @@
     </p>
 {% endif %}
 
-<h4>Для выплаты Вам денег после завершения теста, вам необходимо авторизироваться!</h4>
-
-
-{% formfield player.name label="Введите Ваше имя:" %}
-{% formfield player.phone label="Введите Ваш телефон:" %}
-<p class="small">Номер телефона должен быть связан с банковской картой</p>
-
+    <p>Можно  приступать</p>
 {% next_button %}
 {% endblock %}
 

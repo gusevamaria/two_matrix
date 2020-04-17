@@ -24,7 +24,7 @@ class Constants(BaseConstants):
     players_per_group = 2
     num_rounds = 2
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
-    task_time = 100
+    task_time = 60
 
     training_answer_All_correct = c(194)
 
@@ -83,10 +83,24 @@ class Player(BasePlayer):
             task.save()
             return task
 
-    name = models.StringField(label="Имя")
-    #age = models.IntegerField(label="Возраст")
-    phone = models.IntegerField(label="Телефон")
-
+    fname = models.StringField()
+    lname = models.StringField()
+    age   = models.IntegerField(min=18, max=90)
+    phone = models.IntegerField()
+    city  = models.StringField()
+    sex   = models.CharField(
+        choices=[
+            ['Мужской', 'Мужской'],
+            ['Женский', 'Женский'],
+        ],
+        widget=widgets.RadioSelect
+    )
+    expected_result = models.IntegerField(min=1, max=20)
+    fields = models.CharField(
+        choices=['A', 'B', 'C'],
+        widget=widgets.RadioSelect()
+    )
+    hidden_correct_input = models.IntegerField()
 
 # This is a custom model that contains information about individual tasks. In each round, each player can have as many
 # tasks as they tried to solve (we can call for the set of all tasks solved by a player by calling for instance

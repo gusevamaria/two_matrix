@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+
+{% block title %}
+    Для выплаты денег после завершения теста, Вам необходимо авторизироваться!
+{% endblock %}
+
+{% block content %}
+{% formfield player.fname label="Введите Ваше имя:" %}
+{% formfield player.lname label="Введите Вашу фамилию:" %}
+{% formfield player.age label="Введите Ваш возраст:" %}
+{% formfield player.sex label="Выберите ваш пол:" %}
+
+{% next_button %}
+
+{% endblock %}

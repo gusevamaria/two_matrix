@@ -10,9 +10,9 @@
         var $btn_answer = $("button.answer");
 
         socket.onmessage = function (event) {
-            //console.log(event.data);
+            console.log(event.data);
             var obj = jQuery.parseJSON(event.data);
-            console.log(obj);
+            //console.log(obj);
             $('div.task-container').html(obj.task_body);
             $('span#num_tasks_total').html(obj.num_tasks_total);
             $('span#num_tasks_correct').html(obj.num_tasks_correct);

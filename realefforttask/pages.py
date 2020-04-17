@@ -14,12 +14,12 @@ def find(lst, key, value):
 class WorkPage(Page):
     timer_text = 'Оставшееся время до завершения этого раунда:'
     timeout_seconds = Constants.task_time
+    hidden_correct_input = ['hidden_correct_input']
 
 class WaitForResults(WaitPage):
     pass
 
 class Results(Page):
-
     def vars_for_template(self):
         players = []
         for p in self.group.get_players():
@@ -36,14 +36,14 @@ class Results(Page):
                 'id': p.participant.id_in_session,
                 'total': len(tasks),
                 'correct': num_correct,
-                'tr_class': 'active' if p.participant.id_in_session == self.player.participant.id_in_session else ''
+                'tr_class': 'table-danger' if p.participant.id_in_session == self.player.participant.id_in_session else ''
             })
             sorted_players = sorted(players, key=lambda i: i['correct'], reverse = True)
         return {
             'qty_rounds': Constants.num_rounds,
             'round': self.round_number,
             'players': sorted_players,
-            'position': find(sorted_players, 'id', self.player.participant.id_in_session)
+            'position': find(sorted_players, 'id', self.player.participant.id_in_session)+1
         }
 
 
@@ -63,20 +63,35 @@ class Question(Page):
 class Feedback(Page):
     def is_displayed(self):
         return self.subsession.round_number == 1
+
+class Contacts(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == 1
     form_model = 'player'
-    form_fields = ['name', 'phone']
+    form_fields = ['fname', 'lname', 'age', 'sex']
+
 
 class StartAll(Page):
     def is_displayed(self):
         return self.subsession.round_number == 1
 
+class ExpectedResult(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == 1
+    form_model = 'player'
+    form_fields = ['expected_result', 'fields']
+
+
+
 
 page_sequence = [
-    # Introduction,
-    # Question,
-    # Feedback,
-    # StartAll,
+    Introduction,
+    Question,
+    Feedback,
+    Contacts,
+    StartAll,
     WorkPage,
+    ExpectedResult,
     WaitForResults,
     Results
 ]

@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+
+{% block title %}
+   Раунд закончен
+{% endblock %}
+
+{% block content %}
+
+{% formfield player.expected_result label="Как вы думаете, какое место вы заняли в этом раунде?" %}
+
+{% formfield player.fields with label="Что Вы думаете про ситуацию в мире?" %}
+
+
+{% next_button %}
+
+{% endblock %}

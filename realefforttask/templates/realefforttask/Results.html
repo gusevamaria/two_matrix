@@ -15,24 +15,37 @@
 
 {% block content %}
     {% if position == 1 %}
-        <p>Поздравляем с первым местом!</p>
+        <div class="alert alert-success" role="alert">
+            В этом раунде Вы заняли первое место. Поздравляем!
+        </div>
+    {% else %}
+        <div class="alert alert-primary" role="alert">
+            В этом раунде Вы заняли {{ position }} место.
+        </div>
     {% endif %}
-    <table>
-        <thead>
-        <tr>
+
+
+    <table class="table table-striped ">
+        <thead class="thead-dark">
+        <tr class="text-center">
             <th>Участник</th>
-            <th>Ответов</th>
-            <th>Верно</th>
+            <th>Всего ответов</th>
+            <th>Правильных ответов</th>
             <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
         {% for player in players %}
-        <tr>
-            <td>Р{{ player.id }}</td>
+        <tr class="text-center {{ player.tr_class }}">
+            <td>{% if player.tr_class %}
+                <p>Ваш результат</p>
+                {% else %}
+                <p>Участник №{{ player.id }}</p>
+                {% endif %}
+            </td>
             <td>{{ player.total }}</td>
-            <td>{{ player.correct }}</td>
-            <td>{{ player }}</td>
+            <td>{{ player.correct }} </td>
+            <td>&nbsp;</td>
         </tr>
         {% endfor %}
         </tbody>
