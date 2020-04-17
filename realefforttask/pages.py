@@ -32,17 +32,10 @@ class Results(Page):
                 'id': p.participant.id_in_session,
                 'total': len(tasks),
                 'correct': num_correct,
+                'tr_class': 'active' if p.participant.id_in_session == self.participant.id else ''
             })
-            sorted_players = sorted(players, key=lambda i: i['correct'],reverse = True)
-            for pl in sorted_players:
-                if pl['id'] == p.participant.id_in_session:
-                    print(pl['id'])
-                #     sorted_players.append({'tr_class':"active"})
-                # else:
-                #     sorted_players.append({'tr_class': " " })
-
+            sorted_players = sorted(players, key=lambda i: i['correct'], reverse = True)
         return {
-
             'qty_rounds': Constants.num_rounds,
             'round': self.round_number,
             'players': sorted_players,
