@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+
+{% block title %}
+    Игра: финальные заработки
+{% endblock %}
+
+{% block content %}
+<p> Выплаты будут производиться за {{paying_round}} раунд <p>
+
+<table class="table">
+    <tr>
+        <th>Раунд</th>
+        <th>Заработок</th>
+    </tr>
+    {% for p in player_in_all_rounds %}
+        <tr>
+            <td>{{ p.round_number }}</td>
+            <td>
+                {{ p.pay|json }} очков
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+<p> Обменный курс составляет 1 очко = 50 рублей. Ваш финальный заработок, включая плату за участие, составил {{final_payoff}}.
+Выплаты будут осуществляться наличными.
+<p>
+<p> СПАСИБО ЗА УЧАСТИЕ. <p>
+
+{% endblock %}

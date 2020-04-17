@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <style>
+        input[type=number].form-control {
+            max-width: 300px;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Вопрос на понимание пройден{% endblock %}
+
+{% block content %}
+
+{% if player.training_answer_All == Constants.training_answer_All_correct %}
+    <p class="text-success">
+    Ваш ответ {{player.training_answer_All}} верен!
+    </p>
+{% else %}
+    <p class="text-danger">
+    Ваш ответ {{player.training_answer_All}} не верен!
+    </p>
+{% endif %}
+
+<h4>Для выплаты Вам денег после завершения теста, вам необходимо авторизироваться!</h4>
+
+
+{% formfield player.name label="Введите Ваше имя:" %}
+{% formfield player.phone label="Введите Ваш телефон:" %}
+<p class="small">Номер телефона должен быть связан с банковской картой</p>
+
+{% next_button %}
+{% endblock %}
+
+
