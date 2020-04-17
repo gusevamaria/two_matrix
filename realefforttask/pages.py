@@ -5,22 +5,20 @@ from . import models
 #logger = logging.getLogger(__name__)
 import numpy as np
 
+def find(lst, key, value):
+    for i, dic in enumerate(lst):
+        if dic[key] == value:
+            return i
+    return -1
 
 class WorkPage(Page):
     timer_text = 'Оставшееся время до завершения этого раунда:'
     timeout_seconds = Constants.task_time
 
-
-
 class WaitForResults(WaitPage):
     pass
 
 class Results(Page):
-    def find(lst, key, value):
-        for i, dic in enumerate(lst):
-            if dic[key] == value:
-                return i
-        return -1
 
     def vars_for_template(self):
         players = []
