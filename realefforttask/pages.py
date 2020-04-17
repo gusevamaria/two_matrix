@@ -16,6 +16,12 @@ class WaitForResults(WaitPage):
     pass
 
 class Results(Page):
+    def find(lst, key, value):
+        for i, dic in enumerate(lst):
+            if dic[key] == value:
+                return i
+        return -1
+
     def vars_for_template(self):
         players = []
         for p in self.group.get_players():
@@ -32,13 +38,14 @@ class Results(Page):
                 'id': p.participant.id_in_session,
                 'total': len(tasks),
                 'correct': num_correct,
-                'tr_class': 'active' if p.participant.id_in_session == self.participant.id else ''
+                'tr_class': 'active' if p.participant.id_in_session == self.player.participant.id_in_session else ''
             })
             sorted_players = sorted(players, key=lambda i: i['correct'], reverse = True)
         return {
             'qty_rounds': Constants.num_rounds,
             'round': self.round_number,
             'players': sorted_players,
+            'position': find(sorted_players, 'id', self.player.participant.id_in_session)
         }
 
 
