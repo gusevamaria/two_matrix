@@ -59,7 +59,6 @@ class TwoMatrices(TaskGenerator):
     def get_correct_answer(self):
         return max(self.listx) + max(self.listy)
 
-
     def get_body(self, **kwargs):
         diff = kwargs.get('difficulty', 10)
         self.listx = get_random_list(diff ** 2)

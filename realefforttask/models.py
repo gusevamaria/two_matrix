@@ -24,7 +24,9 @@ class Constants(BaseConstants):
     players_per_group = 2
     num_rounds = 2
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
-    task_time = 10
+    task_time = 100
+
+    training_answer_All_correct = c(194)
 
 
 class Subsession(BaseSubsession):
@@ -55,7 +57,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     # here we store all tasks solved in this specific round - for further analysis
     tasks_dump = models.LongStringField(doc='to store all tasks with answers, diff level and feedback')
-
+    training_answer_All = models.IntegerField(verbose_name='This training_answer')
     # this method returns number of correct tasks solved in this round
     @property
     def num_tasks_correct(self):
@@ -80,6 +82,10 @@ class Player(BasePlayer):
             task = Task.create(self, self.session.vars['task_fun'], **self.session.vars['task_params'])
             task.save()
             return task
+
+    name = models.StringField(label="Имя")
+    #age = models.IntegerField(label="Возраст")
+    phone = models.IntegerField(label="Телефон")
 
 
 # This is a custom model that contains information about individual tasks. In each round, each player can have as many

@@ -20,17 +20,20 @@
             <th>Участник</th>
             <th>Ответов</th>
             <th>Верно</th>
+            <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
         {% for player in players %}
         <tr>
-            <td>P{{ player.id }}</td>
+            <td>Р{{ player.id }}</td>
             <td>{{ player.total }}</td>
             <td>{{ player.correct }}</td>
+            <td>{{ player }}</td>
         </tr>
         {% endfor %}
         </tbody>
+
     </table>
     {% next_button %}
 {% endblock %}
