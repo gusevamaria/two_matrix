@@ -19,6 +19,7 @@ class WorkPage(Page):
 class WaitForResults(WaitPage):
     pass
 
+
 class Results(Page):
     def vars_for_template(self):
         players = []
@@ -75,22 +76,25 @@ class StartAll(Page):
     def is_displayed(self):
         return self.subsession.round_number == 1
 
-class ExpectedResult(Page):
+class ExpectedResult(WaitPage):
     def is_displayed(self):
         return self.subsession.round_number == 1
     form_model = 'player'
     form_fields = ['expected_result', 'fields']
 
-
+class MyWaitPage(WaitPage):
+    template_name = 'realefforttask/MyWaitPage.html'
 
 
 page_sequence = [
-    Introduction,
-    Question,
-    Feedback,
-    Contacts,
+    # Introduction,
+    # Question,
+    # Feedback,
+    # Contacts,
     StartAll,
+    MyWaitPage,
     WorkPage,
+    MyWaitPage,
     ExpectedResult,
     WaitForResults,
     Results
