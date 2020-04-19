@@ -58,6 +58,7 @@ class Player(BasePlayer):
     # here we store all tasks solved in this specific round - for further analysis
     tasks_dump = models.LongStringField(doc='to store all tasks with answers, diff level and feedback')
     training_answer_All = models.IntegerField(verbose_name='This training_answer')
+
     # this method returns number of correct tasks solved in this round
     @property
     def num_tasks_correct(self):
@@ -100,7 +101,7 @@ class Player(BasePlayer):
     )
     hidden_correct_input = models.IntegerField()
     end_quest = models.StringField()
-
+    random_bonus = models.CurrencyField()
 
 # This is a custom model that contains information about individual tasks. In each round, each player can have as many
 # tasks as they tried to solve (we can call for the set of all tasks solved by a player by calling for instance
