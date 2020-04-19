@@ -37,8 +37,6 @@ class TaskGenerator:
         self.html_body = self.get_html_body()
         logger.info(f'Correct answer: {self.correct_answer}')
 
-
-
     def get_context_for_body(self):
         return {}
 
@@ -74,6 +72,8 @@ class TwoMatrices(TaskGenerator):
             "mat2": self.body['listy'],
             "correct_answer": self.correct_answer,
         }
+
+
 
 
 # class SumNumbers(TaskGenerator):

@@ -14,14 +14,12 @@ AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
 
 SESSION_CONFIG_DEFAULTS = {
     'real_world_currency_per_point': 1.00,
-    'participation_fee': 0.00,
+    'participation_fee': 5.00,
     'doc': "",
 }
 
 SESSION_CONFIGS = [
     {
-
-
         'name': 'realefforttask',
         'display_name': 'Real Effort Task - Two Matrices',
         'num_demo_participants': 2,
@@ -57,7 +55,12 @@ ADMIN_USERNAME = 'admin'
 ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 
 # Consider '', None, and '0' to be empty/false
-DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
+#DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
+if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
+    DEBUG = False
+else:
+    DEBUG = True
+
 
 DEMO_PAGE_INTRO_HTML = """ """
 

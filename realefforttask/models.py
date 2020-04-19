@@ -22,7 +22,7 @@ doc = """
 class Constants(BaseConstants):
     name_in_url = 'realefforttask'
     players_per_group = 2
-    num_rounds = 2
+    num_rounds = 1
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
     task_time = 60
 
@@ -62,15 +62,13 @@ class Player(BasePlayer):
     @property
     def num_tasks_correct(self):
         return self.tasks.filter(correct_answer=F('answer')).count()
-
-    logger.info(f'Правильных answer: {num_tasks_correct}')
+    # logger.info(f'Правильных answer: {num_tasks_correct}')
 
     # this method returns total number of tasks to which a player provided an answer
     @property
     def num_tasks_total(self):
         return self.tasks.filter(answer__isnull=False).count()
-
-    logger.info(f'Всего answer: {num_tasks_total}')
+    # logger.info(f'Всего answer: {num_tasks_total}')
 
     # The following method checks if there are any unfinished (with no answer) tasks. If yes, we return the unfinished
     # task. If there are no uncompleted tasks we create a new one using a task-generating function from session settings
@@ -88,7 +86,7 @@ class Player(BasePlayer):
     age   = models.IntegerField(min=18, max=90)
     phone = models.IntegerField()
     city  = models.StringField()
-    sex   = models.CharField(
+    sex   = models.StringField(
         choices=[
             ['Мужской', 'Мужской'],
             ['Женский', 'Женский'],
@@ -96,11 +94,13 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
     expected_result = models.IntegerField(min=1, max=20)
-    fields = models.CharField(
+    radio_select = models.CharField(
         choices=['A', 'B', 'C'],
         widget=widgets.RadioSelect()
     )
     hidden_correct_input = models.IntegerField()
+    end_quest = models.StringField()
+
 
 # This is a custom model that contains information about individual tasks. In each round, each player can have as many
 # tasks as they tried to solve (we can call for the set of all tasks solved by a player by calling for instance

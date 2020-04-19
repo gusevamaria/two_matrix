@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+
+{% block title %}
+   Ответьте на вопросы
+{% endblock %}
+
+{% block content %}
+
+{% formfield player.city label="В каком городе вы проживаете?" %}
+
+<p>Для выплаты заработанной суммы </p>
+{% formfield player.phone with label="Введите номер вашего телефона:" %}
+<p class="small">телефон должен быть привязан к банковской карте</p>
+
+{% formfield player.end_quest with label="Еще какой-то вопрос?" %}
+
+{% next_button %}
+
+{% endblock %}

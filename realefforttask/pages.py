@@ -1,8 +1,8 @@
 from ._builtin import Page, WaitPage
 from .models import Constants, Task
 from . import models
-#import logging
-#logger = logging.getLogger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 import numpy as np
 
 def find(lst, key, value):
@@ -15,9 +15,6 @@ class WorkPage(Page):
     timer_text = 'Оставшееся время до завершения этого раунда:'
     timeout_seconds = Constants.task_time
     hidden_correct_input = ['hidden_correct_input']
-
-class WaitForResults(WaitPage):
-    pass
 
 
 class Results(Page):
@@ -48,6 +45,17 @@ class Results(Page):
         }
 
 
+class Payoffs(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == Constants.num_rounds
+
+    def vars_for_template(self):
+        round = self.subsession.round_number
+        return {"paying_round": str(round)[1:-1],
+                "final_payoff": self.participant.payoff_plus_participation_fee(),
+                'player_in_all_rounds': self.player.in_all_rounds()}
+
+
 class Introduction(Page):
     def is_displayed(self):
         return self.subsession.round_number == 1
@@ -76,14 +84,28 @@ class StartAll(Page):
     def is_displayed(self):
         return self.subsession.round_number == 1
 
-class ExpectedResult(WaitPage):
+class ExpectedResult(Page):
     def is_displayed(self):
         return self.subsession.round_number == 1
     form_model = 'player'
-    form_fields = ['expected_result', 'fields']
+    form_fields = ['expected_result', 'radio_select']
 
 class MyWaitPage(WaitPage):
     template_name = 'realefforttask/MyWaitPage.html'
+
+class WaitForResults(WaitPage):
+    def after_all_players_arrive(self):
+        pass
+
+class EndQuestionnaire(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == Constants.num_rounds
+    form_model = models.Player
+    form_fields = ['phone', 'city', 'end_quest']
+
+
+
+
 
 
 page_sequence = [
@@ -94,8 +116,9 @@ page_sequence = [
     StartAll,
     MyWaitPage,
     WorkPage,
-    MyWaitPage,
     ExpectedResult,
-    WaitForResults,
-    Results
+    MyWaitPage,
+    Results,
+    EndQuestionnaire,
+    Payoffs,
 ]
