@@ -14,12 +14,14 @@ def find(lst, key, value):
 class WorkPage(Page):
     timer_text = 'Оставшееся время до завершения этого раунда:'
     timeout_seconds = Constants.task_time
-    hidden_correct_input = ['hidden_correct_input']
-
+    form_model = models.Player
+    form_fields = ['hidden_total_answer', 'hidden_correct_answer']
 
 class Results(Page):
+
     def vars_for_template(self):
         players = []
+
         for p in self.group.get_players():
             tasks = Task.objects.filter(
                 player=p,
@@ -43,6 +45,8 @@ class Results(Page):
             'players': sorted_players,
             'position': find(sorted_players, 'id', self.player.participant.id_in_session)+1
         }
+
+
 
 
 class Payoffs(Page):

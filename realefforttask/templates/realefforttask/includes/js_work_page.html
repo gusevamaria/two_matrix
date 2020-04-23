@@ -8,15 +8,20 @@
         // Handle messages sent by the server.
         var $answer = $('input#answer');
         var $btn_answer = $("button.answer");
+        var $inp_tot = $('input#hidden_total_answer');
+        var $inp_cor = $('input#hidden_correct_answer');
 
         socket.onmessage = function (event) {
-            console.log(event.data);
+            //console.log(event.data);
             var obj = jQuery.parseJSON(event.data);
-            console.log(obj);
+            //console.log(obj);
             $('div.task-container').html(obj.task_body);
             $('span#num_tasks_total').html(obj.num_tasks_total);
             $('span#num_tasks_correct').html(obj.num_tasks_correct);
             $('span#feedback').html(obj.feedback);
+
+            $inp_tot.val(obj.num_tasks_total);
+            $inp_cor.val(obj.num_tasks_correct);
         };
 
         $btn_answer.on("click", function () {

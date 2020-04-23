@@ -1,4 +1,4 @@
-import random
+#import random
 from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range,
@@ -7,7 +7,7 @@ from otree.api import (
 from django.db import models as djmodels
 from django.db.models import F
 from . import ret_functions
-
+import pandas as pd
 import logging
 
 logger = logging.getLogger(__name__)
@@ -24,7 +24,7 @@ class Constants(BaseConstants):
     players_per_group = 2
     num_rounds = 1
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
-    task_time = 180
+    task_time = 50
 
     training_answer_All_correct = c(194)
 
@@ -51,7 +51,14 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-    ...
+    def set_ranking(self):
+        players = self.get_players()
+        values = [p.num_tasks_correct for p in players]
+        data = dict(player=players, value=values)
+        df = pd.DataFrame(data)
+        df['rank'] = df['value'].rank(method='dense', ascending=False)
+        for index, row in df.iterrows():
+            row['player'].rank = int(row['rank'])
 
 
 class Player(BasePlayer):
@@ -99,7 +106,8 @@ class Player(BasePlayer):
         choices=['A', 'B', 'C'],
         widget=widgets.RadioSelect()
     )
-    hidden_correct_input = models.IntegerField()
+    hidden_total_answer = models.IntegerField()
+    hidden_correct_answer = models.IntegerField()
     end_quest = models.StringField()
     random_bonus = models.CurrencyField()
 
