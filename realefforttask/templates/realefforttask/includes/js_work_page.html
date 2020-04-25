@@ -8,8 +8,10 @@
         // Handle messages sent by the server.
         var $answer = $('input#answer');
         var $btn_answer = $("button.answer");
-        var $inp_tot = $('input#hidden_total_answer');
-        var $inp_cor = $('input#hidden_correct_answer');
+        var $inp_tot = $('input#id_hidden_total_answer');
+        var $inp_cor = $('input#id_hidden_correct_answer');
+        $inp_tot.prop('type', 'hidden');
+        $inp_cor.prop('type', 'hidden');
 
         socket.onmessage = function (event) {
             //console.log(event.data);

@@ -2,7 +2,7 @@
 {% load otree %}
 
 {% block title %}
-    Результаты раунда {{ round }}
+    Результаты раунда {{ player.round_number }}
 {% endblock %}
 
 {% block styles %}
@@ -14,13 +14,13 @@
 {% endblock %}
 
 {% block content %}
-    {% if position == 1 %}
+    {% if player.rank == 1 %}
         <div class="alert alert-success" role="alert">
             В этом раунде Вы заняли первое место. Поздравляем!
         </div>
     {% else %}
         <div class="alert alert-primary" role="alert">
-            В этом раунде Вы заняли {{ position }} место.
+             В этом раунде Вы заняли {{ player.rank }} место.
         </div>
     {% endif %}
 
@@ -35,16 +35,16 @@
         </tr>
         </thead>
         <tbody>
-        {% for player in players %}
-        <tr class="text-center {{ player.tr_class }}">
-            <td>{% if player.tr_class %}
+        {% for p in group.get_players %}
+        <tr class="text-center   {% if p.id == player.id %}table-danger{% endif %} ">
+            <td> {% if p.id == player.id %}
                 <p>Ваш результат</p>
                 {% else %}
-                <p>Участник №{{ player.id }}</p>
+                <p>Участник №{{ p.id_in_group }}</p>
                 {% endif %}
             </td>
-            <td>{{ player.total }} </td>
-            <td>{{ player.correct }} </td>
+            <td>{{ p.num_tasks_total}}</td>
+            <td>{{ p.num_tasks_correct  }} </td>
             <td>&nbsp;</td>
         </tr>
 

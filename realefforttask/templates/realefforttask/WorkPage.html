@@ -16,8 +16,12 @@
     <p> Правильных ответов: <span id="num_tasks_correct"> {{ player.num_tasks_correct }}</span> </p>
     <div><span id="feedback"> </span></div>
 
-    <input type="text" name="hidden_total_answer" id="hidden_total_answer" disabled>
-    <input type="text" name="hidden_correct_answer" id="hidden_correct_answer" disabled>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+    </form>
+
 
 
 {% endblock %}
@@ -95,6 +99,9 @@
         h2, h3, h4, h5, h6 {
             font-weight: bolder;
             color: #24435c;
+        }
+        label{
+            display:none;
         }
 
     </style>
