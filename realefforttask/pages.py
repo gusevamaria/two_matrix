@@ -49,16 +49,6 @@ class Results(Page):
 
 
 
-class Payoffs(Page):
-    def is_displayed(self):
-        return self.subsession.round_number == Constants.num_rounds
-
-    def vars_for_template(self):
-        round = self.subsession.round_number
-        return {"paying_round": str(round)[1:-1],
-                "final_payoff": self.participant.payoff_plus_participation_fee(),
-                'player_in_all_rounds': self.player.in_all_rounds()}
-
 
 class Introduction(Page):
     def is_displayed(self):
@@ -115,7 +105,9 @@ class EndQuestionnaire(Page):
     form_model = models.Player
     form_fields = ['phone', 'city', 'end_quest']
 
-
+class Payoffs(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == Constants.num_rounds
 
 
 
@@ -129,9 +121,8 @@ page_sequence = [
     MyWaitPage,
     WorkPage,
     ExpectedResult,
-    # MyWaitPage,
     WaitForResults,
     Results,
-    EndQuestionnaire,
-    Payoffs,
+    # EndQuestionnaire,
+    # Payoffs,
 ]

@@ -22,17 +22,19 @@ doc = """
 class Constants(BaseConstants):
     name_in_url = 'realefforttask'
     players_per_group = 3
-    num_rounds = 1
+    num_rounds = 2
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
-    task_time = 180
+    task_time = 40
 
     training_answer_All_correct = c(194)
-    prize = c(10)
+    # Эта минимальная обязательная сумма выплачевается за участие в эксперименте всем участникам
+    prize = 120
+    # Эта сумма должна быть выплачена победителю раунда или разделена среди n победителей
+    total_round_payoff = 1000
 
 
 class Subsession(BaseSubsession):
     def creating_session(self):
-
         # we look for a corresponding Task Generator in our library (ret_functions.py) that contain all task-generating
         # functions. So the name of the generator in 'task_fun' parameter from settings.py should coincide with an
         # actual task-generating class from ret_functions.
@@ -50,7 +52,6 @@ class Subsession(BaseSubsession):
 
 
 
-
 class Group(BaseGroup):
     def set_ranking(self):
         players = self.get_players()
@@ -58,13 +59,35 @@ class Group(BaseGroup):
         data = dict(player=players, value=values)
         df = pd.DataFrame(data)
         df['rank'] = df['value'].rank(method='dense', ascending=False)
+        #print(df.iterrows())
         for index, row in df.iterrows():
             row['player'].rank = int(row['rank'])
+            if row['player'].rank == 1:
+                row['player'].round_win = 1
+            else:
+                row['player'].round_win = 0
+
+
+        # for g in self.subsession.get_groups():
+        #     for p in g.get_players():
+        #         payoff_list = p.participant.vars.get('payoffs', [])
+        #         pay = random.randint(0, len(payoff_list))  #
+        #         round_to_pay = random.randint(0, len(payoff_list[pay])
+        #         p.participant.payoff = payoff_list[pay][round_to_pay]
+
+
+        # def set_pay(self):
+        #     for p in self.get_players():
+        #         if p.round_win() == 1:
+        #             p.pay = (Constants.total_round_payoff)
+
 
 
 class Player(BasePlayer):
     rank = models.IntegerField()
-    random_bonus = models.CurrencyField()
+    round_win = models.IntegerField()
+    pay = models.CurrencyField()
+
 
     # here we store all tasks solved in this specific round - for further analysis
     tasks_dump = models.LongStringField(doc='to store all tasks with answers, diff level and feedback')
@@ -113,7 +136,7 @@ class Player(BasePlayer):
     hidden_total_answer = models.IntegerField()
     hidden_correct_answer = models.IntegerField()
     end_quest = models.StringField()
-    random_bonus = models.CurrencyField()
+
 
 # This is a custom model that contains information about individual tasks. In each round, each player can have as many
 # tasks as they tried to solve (we can call for the set of all tasks solved by a player by calling for instance
