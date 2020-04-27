@@ -22,7 +22,7 @@ doc = """
 class Constants(BaseConstants):
     name_in_url = 'realefforttask'
     players_per_group = 3
-    num_rounds = 2
+    num_rounds = 1
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
     task_time = 40
 
@@ -59,14 +59,21 @@ class Group(BaseGroup):
         data = dict(player=players, value=values)
         df = pd.DataFrame(data)
         df['rank'] = df['value'].rank(method='dense', ascending=False)
-        #print(df.iterrows())
+        num_winners = 0
         for index, row in df.iterrows():
             row['player'].rank = int(row['rank'])
             if row['player'].rank == 1:
                 row['player'].round_win = 1
+                num_winners += 1
             else:
                 row['player'].round_win = 0
-
+        payout_per_round = int(Constants.total_round_payoff / num_winners)
+        print(payout_per_round)
+        for p in players:
+            if p.round_win == 1:
+                p.participant.payoff += payout_per_round
+                p.pay = p.participant.payoff
+                print(p.pay)
 
         # for g in self.subsession.get_groups():
         #     for p in g.get_players():
