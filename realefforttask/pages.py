@@ -81,6 +81,7 @@ class StartAll(Page):
     def is_displayed(self):
         return self.subsession.round_number == 1
 
+
 class ExpectedResult(Page):
     def is_displayed(self):
         return self.subsession.round_number == 1
@@ -105,11 +106,20 @@ class EndQuestionnaire(Page):
     form_model = models.Player
     form_fields = ['phone', 'city', 'end_quest']
 
+
 class Payoffs(Page):
     def is_displayed(self):
         return self.subsession.round_number == Constants.num_rounds
 
-
+    def vars_for_template(self):
+        allplayers = self.group.get_players()
+        total_score = self.participant.payoff_plus_participation_fee()
+        # total_score = sum([sum([p.total_score for p in pp.in_all_rounds()]) for pp in allplayers])
+        # total_payoff = sum([sum([p.payoff for p in pp.in_all_rounds()]) for pp in allplayers])
+        return {
+            'total_score': total_score,
+            # 'total_payoff': total_payoff,
+        }
 
 
 page_sequence = [
@@ -123,6 +133,7 @@ page_sequence = [
     ExpectedResult,
     WaitForResults,
     Results,
-    # EndQuestionnaire,
-    # Payoffs,
+    EndQuestionnaire,
+    Payoffs,
+
 ]

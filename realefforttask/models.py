@@ -8,8 +8,8 @@ from django.db import models as djmodels
 from django.db.models import F
 from . import ret_functions
 import pandas as pd
+import random
 import logging
-
 logger = logging.getLogger(__name__)
 
 author = ''
@@ -22,9 +22,9 @@ doc = """
 class Constants(BaseConstants):
     name_in_url = 'realefforttask'
     players_per_group = 3
-    num_rounds = 1
+    num_rounds = 2
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
-    task_time = 40
+    task_time = 50
 
     training_answer_All_correct = c(194)
     # Эта минимальная обязательная сумма выплачевается за участие в эксперименте всем участникам
@@ -50,6 +50,12 @@ class Subsession(BaseSubsession):
         for p in self.get_players():
             p.get_or_create_task()
 
+        # for g in self.subsession.get_groups():
+        #     for p in g.get_players():
+        #         payoff_list = p.participant.vars.get('payoffs', [])
+        #         pay = random.randint(0, len(payoff_list))
+        #         round_to_pay = random.randint(0, len(payoff_list[pay]))
+        #         p.participant.payoff = payoff_list[pay][round_to_pay]
 
 
 class Group(BaseGroup):
@@ -68,25 +74,17 @@ class Group(BaseGroup):
             else:
                 row['player'].round_win = 0
         payout_per_round = int(Constants.total_round_payoff / num_winners)
-        print(payout_per_round)
+        #total_wins = num_winners
+
         for p in players:
             if p.round_win == 1:
-                p.participant.payoff += payout_per_round
+                p.participant.payoff = payout_per_round
+                # p.participant.payoff += payout_per_round
                 p.pay = p.participant.payoff
-                print(p.pay)
+                p.win_per_round = num_winners
+            else:
+                p.pay = 0
 
-        # for g in self.subsession.get_groups():
-        #     for p in g.get_players():
-        #         payoff_list = p.participant.vars.get('payoffs', [])
-        #         pay = random.randint(0, len(payoff_list))  #
-        #         round_to_pay = random.randint(0, len(payoff_list[pay])
-        #         p.participant.payoff = payoff_list[pay][round_to_pay]
-
-
-        # def set_pay(self):
-        #     for p in self.get_players():
-        #         if p.round_win() == 1:
-        #             p.pay = (Constants.total_round_payoff)
 
 
 
@@ -94,7 +92,7 @@ class Player(BasePlayer):
     rank = models.IntegerField()
     round_win = models.IntegerField()
     pay = models.CurrencyField()
-
+    final_payoff = models.CurrencyField()
 
     # here we store all tasks solved in this specific round - for further analysis
     tasks_dump = models.LongStringField(doc='to store all tasks with answers, diff level and feedback')
@@ -143,7 +141,8 @@ class Player(BasePlayer):
     hidden_total_answer = models.IntegerField()
     hidden_correct_answer = models.IntegerField()
     end_quest = models.StringField()
-
+    total_score = models.IntegerField(initial = 0)
+    win_per_round = models.IntegerField(initial = 0)
 
 # This is a custom model that contains information about individual tasks. In each round, each player can have as many
 # tasks as they tried to solve (we can call for the set of all tasks solved by a player by calling for instance

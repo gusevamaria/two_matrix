@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+
+{% block title %}
+   Итоговая информация
+{% endblock %}
+
+{% block content %}
+ <p> Ниже перечислены Ваши выплаты по раундам <p>
+
+
+{{ total_score }}
+{{ total_payoff }}
+
+<p>
+
+<p>
+<p> СПАСИБО ЗА УЧАСТИЕ. <p>
+
+{% endblock %}
