@@ -83,8 +83,8 @@ class StartAll(Page):
 
 
 class ExpectedResult(Page):
-    def is_displayed(self):
-        return self.subsession.round_number == 1
+    # def is_displayed(self):
+    #     return self.subsession.round_number == 1
     form_model = 'player'
     form_fields = ['expected_result', 'radio_select']
 
