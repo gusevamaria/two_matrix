@@ -1,15 +1,16 @@
 {% extends "global/Page.html" %}
 {% load staticfiles otree %}
 
-{% block title %}Вопрос на понимание{% endblock %}
+{% block title %}Тренировочное задание{% endblock %}
 
 {% block content %}
         <p> Ваша задача состоит в том, чтобы найти <b>наибольшее число в первой матрице</b> и
-          <b>наибольшее число во второй матрице</b>, и затем <b>сложить их</b>.
-          <br>Запишите Ваш ответ в ячейке под матрицами.
+          <b>наибольшее число во второй матрице</b>, и затем <b>сложить их</b>. Запишите Ваш ответ в ячейке под матрицами.
         </p>
+
+        <p> Помните, что в настоящих раундах Ваше время будет ограничено до 3 минут!</p>
 <div class="row">
-      <div class='col-md-6 mb-3 table-responsive-lg'>
+      <div class='col-md-6 mb-3 table-responsive-lg' style="text-align:center;">
         <p><strong>Первая матрица</strong></p>
         <table class="table table-bordered" border="1" >
           <tbody>
@@ -17,259 +18,87 @@
             <td>21</td>
             <td>14</td>
             <td>47</td>
-            <td>53</td>
-            <td>12</td>
-            <td>34</td>
-            <td>42</td>
             <td>87</td>
             <td>33</td>
-            <td>11</td>
           </tr>
-          <tr>
+          <tr style="text-align:center;">
             <td>10</td>
-            <td>45</td>
-            <td>62</td>
             <td>76</td>
             <td>23</td>
-            <td>60</td>
-            <td>24</td>
-            <td>47</td>
             <td>28</td>
             <td>38</td>
           </tr>
-          <tr>
+          <tr style="text-align:center;">
             <td>32</td>
             <td>90</td>
             <td>87</td>
             <td>52</td>
             <td>97</td>
-            <td>11</td>
-            <td>89</td>
-            <td>24</td>
-            <td>82</td>
-            <td>17</td>
           </tr>
-          <tr>
-            <td>47</td>
-            <td>26</td>
-            <td>79</td>
-            <td>45</td>
-            <td>61</td>
+          <tr style="text-align:center;">
             <td>12</td>
             <td>88</td>
             <td>52</td>
             <td>74</td>
             <td>61</td>
           </tr>
-          <tr>
+          <tr style="text-align:center;">
             <td>13</td>
             <td>43</td>
             <td>65</td>
             <td>11</td>
             <td>78</td>
-            <td>55</td>
-            <td>78</td>
-            <td>89</td>
-            <td>18</td>
-            <td>39</td>
           </tr>
-          <tr>
-            <td>27</td>
-            <td>22</td>
-            <td>33</td>
-            <td>12</td>
-            <td>48</td>
-            <td>26</td>
-            <td>41</td>
-            <td>10</td>
-            <td>88</td>
-            <td>19</td>
-          </tr>
-          <tr>
-            <td>55</td>
-            <td>12</td>
-            <td>47</td>
-            <td>61</td>
-            <td>78</td>
-            <td>25</td>
-            <td>11</td>
-            <td>21</td>
-            <td>38</td>
-            <td>17</td>
-          </tr>
-          <tr>
-            <td>20</td>
-            <td>22</td>
-            <td>37</td>
-            <td>51</td>
-            <td>62</td>
-            <td>30</td>
-            <td>90</td>
-            <td>76</td>
-            <td>98</td>
-            <td>27</td>
-          </tr>
-          <tr>
-            <td>43</td>
-            <td>60</td>
-            <td>27</td>
-            <td>34</td>
-            <td>77</td>
-            <td>65</td>
-            <td>10</td>
-            <td>86</td>
-            <td>10</td>
-            <td>17</td>
-          </tr>
-          <tr>
-            <td>32</td>
-            <td>29</td>
-            <td>51</td>
-            <td>20</td>
-            <td>35</td>
-            <td>33</td>
-            <td>44</td>
-            <td>29</td>
-            <td>31</td>
-            <td>25</td>
-          </tr>
+
         </tbody></table>
       </div>
-      <div class='col-md-6 mb-3 table-responsive-lg'>
+      <div class='col-md-6 mb-3 table-responsive-lg' style="text-align:center;">
         <p><strong>Вторая матрица</strong></p>
         <table class="table table-bordered" border="1">
-          <tbody><tr>
-            <td>32</td>
-            <td>90</td>
-            <td>87</td>
-            <td>52</td>
-            <td>97</td>
+          <tbody>
+          <tr style="text-align:center;">
             <td>21</td>
             <td>14</td>
             <td>47</td>
             <td>43</td>
             <td>12</td>
           </tr>
-          <tr>
-            <td>35</td>
-            <td>33</td>
-            <td>44</td>
-            <td>29</td>
-            <td>31</td>
+          <tr style="text-align:center;">
             <td>10</td>
             <td>11</td>
             <td>65</td>
             <td>76</td>
             <td>23</td>
           </tr>
-          <tr>
-            <td>60</td>
-            <td>27</td>
-            <td>34</td>
-            <td>77</td>
-            <td>65</td>
+          <tr style="text-align:center;">
             <td>90</td>
             <td>86</td>
             <td>89</td>
             <td>59</td>
             <td>61</td>
           </tr>
-          <tr>
+          <tr style="text-align:center;">
             <td>17</td>
-            <td>97</td>
+            <td>61</td>
             <td>93</td>
             <td>59</td>
             <td>61</td>
-            <td>47</td>
-            <td>26</td>
-            <td>87</td>
-            <td>76</td>
-            <td>13</td>
           </tr>
-          <tr>
-            <td>13</td>
-            <td>43</td>
-            <td>65</td>
-            <td>11</td>
-            <td>78</td>
+          <tr style="text-align:center;">
             <td>43</td>
             <td>48</td>
             <td>95</td>
             <td>12</td>
             <td>78</td>
           </tr>
-          <tr>
-            <td>88</td>
-            <td>65</td>
-            <td>33</td>
-            <td>66</td>
-            <td>21</td>
-            <td>94</td>
-            <td>69</td>
-            <td>43</td>
-            <td>19</td>
-            <td>90</td>
-          </tr>
-          <tr>
-            <td>54</td>
-            <td>14</td>
-            <td>53</td>
-            <td>22</td>
-            <td>81</td>
-            <td>95</td>
-            <td>87</td>
-            <td>33</td>
-            <td>10</td>
-            <td>59</td>
-          </tr>
-          <tr>
-            <td>65</td>
-            <td>77</td>
-            <td>34</td>
-            <td>63</td>
-            <td>31</td>
-            <td>56</td>
-            <td>78</td>
-            <td>93</td>
-            <td>50</td>
-            <td>96</td>
-          </tr>
-          <tr>
-            <td>42</td>
-            <td>23</td>
-            <td>11</td>
-            <td>35</td>
-            <td>76</td>
-            <td>88</td>
-            <td>91</td>
-            <td>72</td>
-            <td>53</td>
-            <td>15</td>
-          </tr>
-          <tr>
-            <td>90</td>
-            <td>55</td>
-            <td>32</td>
-            <td>49</td>
-            <td>65</td>
-            <td>75</td>
-            <td>19</td>
-            <td>25</td>
-            <td>14</td>
-            <td>87</td>
-          </tr>
         </tbody></table>
       </div>
 </div>
 
 
-{% formfield player.training_answer_All with label="Введите сумму?" %}
-
-<div class="alert alert-primary" role="alert">
-  (правильный ответ 194! Потом уберем и матрица меньше будет)
-</div>
+{% formfield player.training_answer_All with label="Введите сумму" %}
 
 
-{% next_button %}
+<button class="otree-btn-next btn btn-primary">Завершить тренировочное задание</button>
 {% endblock %}
 

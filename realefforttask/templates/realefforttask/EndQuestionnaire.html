@@ -3,19 +3,21 @@
 
 
 {% block title %}
-   Для выплаты заработанной суммы ответьте на вопросы
+   Пожалуйста, ответьте на следующие вопросы
 {% endblock %}
 
 {% block content %}
+<p>Прочтите следующую ситуацию и выберите наиболее подходящий, по Вашему мнению, ответ: </p>
+{% formfield player.radio_select_end1 label="ЗДЕСЬ БУДЕТ КАКая-ТО СИТУАЦИЯ" %}
 
-{% formfield player.city label="В каком городе вы проживаете?" %}
+{% formfield player.radio_select_end2 label="Какую школу Вы закончили?" %}
 
-<p> </p>
-{% formfield player.phone with label="Введите номер вашего телефона:" %}
-<p class="small">телефон должен быть привязан к банковской карте</p>
+{% formfield player.radio_select_end3 label="Вопрос про отношение к рейтингу" %}
 
-{% formfield player.end_quest with label="Еще какой-то вопрос?" %}
+{% formfield player.interruption label="Отвлекал ли Вас кто-то в ходе эксперимента?" %}
 
-{% next_button %}
+{% formfield player.rules_understanding label="Оцените, насколько данный эксперимент был понятен Вам по шкале от 0 (абсолютно непонятно) до 5(полностью понятен)." %}
+
+<button class="otree-btn-next btn btn-primary">Перейти к моему выигрышу</button>
 
 {% endblock %}

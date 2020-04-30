@@ -3,16 +3,21 @@
 
 
 {% block title %}
-   Раунд закончен
+   Раунд {{ view.round_number }} закончен!
 {% endblock %}
 
 {% block content %}
 
-{% formfield player.expected_result label="Как вы думаете, какое место вы заняли в этом раунде?" %}
+{% formfield player.expected_result label="Как Вы думаете, какое место Вы заняли в этом раунде (введите номер места от 1 до 8)?" %}
 
-{% formfield player.radio_select with label="Что Вы думаете про ситуацию в мире?" %}
+{% formfield player.radio_select1 with label="Сколько усилий Вы приложили в этом раунде относительно предыдущего?" %}
 
+{% formfield player.radio_select2 with label="В этом раунде я приложил(а) максимум усилий, так как хочу выиграть деньги." %}
 
-{% next_button %}
+{% formfield player.radio_select3 with label="В этом раунде я приложил(а) максимум усилий, так как хочу ещё больше улучшить свой результат." %}
+
+{% formfield player.radio_select4 with label="В этом раунде я приложил(а) максимум усилий, потому что в любом соревновании я привык(ла) выкладываться в полную силу." %}
+
+<button class="otree-btn-next btn btn-primary">Далее</button>
 
 {% endblock %}

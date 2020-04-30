@@ -2,7 +2,7 @@
 {% load staticfiles otree %}
 
 
-{% block title %}Вопрос на понимание пройден{% endblock %}
+{% block title %}Тренировочное задание пройдено, можно приступать к настоящим раундам!{% endblock %}
 
 {% block content %}
 
@@ -16,8 +16,7 @@
     </p>
 {% endif %}
 
-    <p>Можно  приступать</p>
-{% next_button %}
+<button class="otree-btn-next btn btn-primary">Приступить к раунду 1</button>
 {% endblock %}
 
 

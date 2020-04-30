@@ -3,15 +3,21 @@
 
 
 {% block title %}
-    Для выплаты денег после завершения теста, Вам необходимо авторизироваться!
+   Регистрация
 {% endblock %}
 
 {% block content %}
-{% formfield player.fname label="Введите Ваше имя:" %}
-{% formfield player.lname label="Введите Вашу фамилию:" %}
-{% formfield player.age label="Введите Ваш возраст:" %}
-{% formfield player.sex label="Выберите ваш пол:" %}
+{% formfield player.fname label="Ваше имя:" %}
+{% formfield player.lname label="Вашу фамилию:" %}
+{% formfield player.otchestvo label="Ваше отчество:" %}
+{% formfield player.sex label="Ваш пол:" %}
+{% formfield player.age label="Ваш возраст:" %}
+{% formfield player.city label="Укажите город, в котором Вы закончили школу:" %}
+<p>
+    Чтобы Вы окончательно поняли задание, на следующей странице предлагаем пройти тренировочное задание на примере
+    одной пары матриц.
+</p>
 
-{% next_button %}
+<button class="otree-btn-next btn btn-primary">Приступить к тренировочному заданию</button>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-#import random
+import random
 from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range,
@@ -6,10 +6,12 @@ from otree.api import (
 
 from django.db import models as djmodels
 from django.db.models import F
+from otree.models import player
+
 from . import ret_functions
 import pandas as pd
-import random
 import logging
+
 logger = logging.getLogger(__name__)
 
 author = ''
@@ -22,19 +24,18 @@ doc = """
 class Constants(BaseConstants):
     name_in_url = 'realefforttask'
     players_per_group = 3
-    num_rounds = 2
+    num_rounds = 3
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
-    task_time = 50
-
-    training_answer_All_correct = c(194)
-    # Эта минимальная обязательная сумма выплачевается за участие в эксперименте всем участникам
-    prize = 120
+    task_time = 55
+    training_answer_All_correct = c(192)
+    # Эта минимальная обязательная сумма выплачивается за участие в эксперименте всем участникам
+    participation_fee = 0
     # Эта сумма должна быть выплачена победителю раунда или разделена среди n победителей
-    total_round_payoff = 1000
-
+    total_round_payoff = 400
 
 class Subsession(BaseSubsession):
     def creating_session(self):
+
         # we look for a corresponding Task Generator in our library (ret_functions.py) that contain all task-generating
         # functions. So the name of the generator in 'task_fun' parameter from settings.py should coincide with an
         # actual task-generating class from ret_functions.
@@ -50,12 +51,6 @@ class Subsession(BaseSubsession):
         for p in self.get_players():
             p.get_or_create_task()
 
-        # for g in self.subsession.get_groups():
-        #     for p in g.get_players():
-        #         payoff_list = p.participant.vars.get('payoffs', [])
-        #         pay = random.randint(0, len(payoff_list))
-        #         round_to_pay = random.randint(0, len(payoff_list[pay]))
-        #         p.participant.payoff = payoff_list[pay][round_to_pay]
 
 
 class Group(BaseGroup):
@@ -64,7 +59,8 @@ class Group(BaseGroup):
         values = [p.num_tasks_correct for p in players]
         data = dict(player=players, value=values)
         df = pd.DataFrame(data)
-        df['rank'] = df['value'].rank(method='dense', ascending=False)
+        df['rank'] = df['value'].rank(method='min', ascending=False)
+
         num_winners = 0
         for index, row in df.iterrows():
             row['player'].rank = int(row['rank'])
@@ -74,17 +70,20 @@ class Group(BaseGroup):
             else:
                 row['player'].round_win = 0
         payout_per_round = int(Constants.total_round_payoff / num_winners)
-        #total_wins = num_winners
 
         for p in players:
             if p.round_win == 1:
                 p.participant.payoff = payout_per_round
-                # p.participant.payoff += payout_per_round
                 p.pay = p.participant.payoff
                 p.win_per_round = num_winners
             else:
                 p.pay = 0
 
+
+
+#final_payoff = p.pay + Constants.participation_fee
+#cycle for round control(in Players??)
+# for round in self.player.in_all_rounds():
 
 
 
@@ -93,6 +92,7 @@ class Player(BasePlayer):
     round_win = models.IntegerField()
     pay = models.CurrencyField()
     final_payoff = models.CurrencyField()
+
 
     # here we store all tasks solved in this specific round - for further analysis
     tasks_dump = models.LongStringField(doc='to store all tasks with answers, diff level and feedback')
@@ -123,26 +123,66 @@ class Player(BasePlayer):
 
     fname = models.StringField()
     lname = models.StringField()
-    age   = models.IntegerField(min=18, max=90)
+    otchestvo = models.StringField()
+    age = models.IntegerField(min=14, max=60)
     phone = models.IntegerField()
-    city  = models.StringField()
-    sex   = models.StringField(
+    city = models.StringField()
+    sex = models.StringField(
         choices=[
             ['Мужской', 'Мужской'],
             ['Женский', 'Женский'],
         ],
         widget=widgets.RadioSelect
     )
-    expected_result = models.IntegerField(min=1, max=20)
-    radio_select = models.CharField(
-        choices=['A', 'B', 'C'],
+    expected_result = models.IntegerField(min=1, max=8)
+    radio_select1 = models.CharField(
+        choices=['Больше', 'Скорее больше', 'Не знаю', 'Скорее меньше', 'Меньше', 'Предыдущего раунда ещё не было'],
         widget=widgets.RadioSelect()
     )
+    radio_select2 = models.CharField(
+        choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь', 'Полностью не соглашусь'],
+        widget=widgets.RadioSelect()
+    )
+
+    radio_select3 = models.CharField(
+        choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь', 'Полностью не соглашусь'],
+        widget=widgets.RadioSelect()
+    )
+
+    radio_select4 = models.CharField(
+        choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь',
+                 'Полностью не соглашусь'],
+        widget=widgets.RadioSelect()
+    )
+    # доработать!!
+    radio_select_end1 = models.CharField(
+        choices=['1', '2', '3', '4', '5'],
+        widget=widgets.RadioSelect()
+    )
+    radio_select_end2 = models.CharField(
+        choices=['Среднеобразовательная школа', 'Гимназия с физ.мат/гуманитарным уклоном', 'Лицей при университете', 'Колледж'],
+        widget=widgets.RadioSelect()
+    )
+    # доработать!!
+    radio_select_end3 = models.CharField(
+        choices=['1', '2', '3', '4', '5'],
+        widget=widgets.RadioSelect()
+    )
+    interruption = models.CharField(
+        choices=['Да', 'Нет'],
+        widget=widgets.RadioSelect()
+    )
+    rules_understanding = models.CharField(
+        choices=['0', '1', '2', '3', '4', '5'],
+        widget=widgets.RadioSelect()
+    )
+    # hidden_correct_input = models.IntegerField()
     hidden_total_answer = models.IntegerField()
     hidden_correct_answer = models.IntegerField()
-    end_quest = models.StringField()
-    total_score = models.IntegerField(initial = 0)
-    win_per_round = models.IntegerField(initial = 0)
+
+    total_score = models.IntegerField(initial=0)
+    win_per_round = models.IntegerField(initial=0)
+
 
 # This is a custom model that contains information about individual tasks. In each round, each player can have as many
 # tasks as they tried to solve (we can call for the set of all tasks solved by a player by calling for instance

@@ -14,15 +14,13 @@
 {% endblock %}
 
 {% block content %}
-
-
     {% if player.rank == 1 %}
         <div class="alert alert-success" role="alert">
-            В этом раунде призовых мест: <strong>{{ player.win_per_round }}</strong> и Вы заняли призовое место.
+            Поздравляем! Вы заняли 1 место! В этом раунде первых мест: <strong>{{ player.win_per_round }}</strong>.
         </div>
     {% else %}
         <div class="alert alert-primary" role="alert">
-             В этом раунде Вы заняли <strong>{{ player.rank }}</strong> место.
+            В этом раунде Вы заняли <strong>{{ player.rank }}</strong> место.
         </div>
     {% endif %}
 
@@ -38,8 +36,8 @@
         </tr>
         </thead>
         <tbody>
-        {% for p in group.get_players %}
 
+        {% for p in group.get_players %}
         <tr class="text-center   {% if p.id == player.id %}table-danger{% endif %} ">
             <td> {% if p.id == player.id %}
                 <p>Ваш результат</p>
@@ -50,12 +48,12 @@
             <td>{{ p.num_tasks_total}}</td>
             <td>{{ p.num_tasks_correct  }} </td>
             <td>{{ p.rank }}</td>
-             <td>{{ p.pay }}</td>
+            <td>{{ p.pay }}</td>
         </tr>
 
         {% endfor %}
         </tbody>
 
     </table>
-    {% next_button %}
+<button class="otree-btn-next btn btn-primary">Начать следующий раунд</button>
 {% endblock %}
