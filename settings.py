@@ -25,7 +25,7 @@ SESSION_CONFIGS = [
         'num_demo_participants': 3,
         'app_sequence': ['realefforttask'],
         'task': 'TwoMatrices',
-        'task_params': {'difficulty': 5},
+        'task_params': {'difficulty': 10},
     }
 ]
 
