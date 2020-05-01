@@ -26,7 +26,7 @@ class Constants(BaseConstants):
     players_per_group = 3
     num_rounds = 3
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
-    task_time = 55
+    task_time = 300
     training_answer_All_correct = c(192)
     # Эта минимальная обязательная сумма выплачивается за участие в эксперименте всем участникам
     participation_fee = 0
