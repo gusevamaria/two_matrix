@@ -90,15 +90,15 @@ class Payoffs(Page):
             # 'total_payoff': total_payoff,
         }
 
-    form_model = 'player'
-    form_fields = ['phone']
+#     form_model = 'player'
+#     form_fields = ['phone']
 
 class EndQuestionnaire(Page):
     def is_displayed(self):
         return self.subsession.round_number == Constants.num_rounds
 
     form_model = models.Player
-    form_fields = ['radio_select_end1', 'radio_select_end2', 'radio_select_end3', 'interruption', 'rules_understanding']
+    form_fields = ['radio_select_end1', 'radio_select_end2', 'radio_select_end3', 'interruption', 'rules_understanding', 'phone']
 
 
 page_sequence = [
