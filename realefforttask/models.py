@@ -14,7 +14,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-author = ''
+author = 'Guseva Maria'
 
 doc = """
     multi-round real effort task
