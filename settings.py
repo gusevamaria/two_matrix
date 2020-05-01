@@ -34,8 +34,8 @@ SESSION_CONFIGS = [
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
-USE_POINTS = True
+REAL_WORLD_CURRENCY_CODE = 'RUB'
+USE_POINTS = False
 
 # AUTH_LEVEL:
 # this setting controls which parts of your site are freely accessible,
