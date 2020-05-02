@@ -22,7 +22,7 @@ SESSION_CONFIGS = [
     {
         'name': 'realefforttask',
         'display_name': 'Real Effort Task - Two Matrices',
-        'num_demo_participants': 2,
+        'num_demo_participants': 8,
         'app_sequence': ['realefforttask'],
         'task': 'TwoMatrices',
         'task_params': {'difficulty': 5},
@@ -34,8 +34,8 @@ SESSION_CONFIGS = [
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
-USE_POINTS = True
+REAL_WORLD_CURRENCY_CODE = 'RUB'
+USE_POINTS = False
 
 # AUTH_LEVEL:
 # this setting controls which parts of your site are freely accessible,
