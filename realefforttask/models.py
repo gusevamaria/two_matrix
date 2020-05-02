@@ -125,7 +125,7 @@ class Player(BasePlayer):
     lname = models.StringField()
     otchestvo = models.StringField()
     age = models.IntegerField(min=14, max=60)
-    phone = models.IntegerField()
+    phone = models.StringField()
     city = models.StringField()
     sex = models.StringField(
         choices=[

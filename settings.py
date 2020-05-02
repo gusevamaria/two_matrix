@@ -53,7 +53,6 @@ AUTH_LEVEL = environ.get('OTREE_AUTH_LEVEL')
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
 ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
-
 # Consider '', None, and '0' to be empty/false
 #DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
 # if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
@@ -66,6 +65,7 @@ if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
 else:
     DEBUG = False
 
+# DEBUG = (environ.get('OTREE_PRODUCTION') in {'1'})
 
 DEMO_PAGE_INTRO_HTML = """ """
 
