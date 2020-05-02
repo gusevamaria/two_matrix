@@ -23,8 +23,8 @@ doc = """
 
 class Constants(BaseConstants):
     name_in_url = 'realefforttask'
-    players_per_group = 3
-    num_rounds = 3
+    players_per_group = 4
+    num_rounds = 2
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
     task_time = 180
     training_answer_All_correct = c(192)
