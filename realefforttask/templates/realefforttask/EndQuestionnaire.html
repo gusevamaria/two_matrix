@@ -7,16 +7,24 @@
 {% endblock %}
 
 {% block content %}
-<p>Прочтите следующую ситуацию и выберите наиболее подходящий, по Вашему мнению, ответ: </p>
-{% formfield player.radio_select_end1 label="ЗДЕСЬ БУДЕТ КАКая-ТО СИТУАЦИЯ" %}
 
-{% formfield player.radio_select_end2 label="Какую школу Вы закончили?" %}
+{% formfield player.end_question_1 label="<strong>Устроит ли Вас, если мы переведём выигранную Вами сумму на Ваш телефон (как пополнение счёта)?</strong>" %}
 
-{% formfield player.radio_select_end3 label="Вопрос про отношение к рейтингу" %}
+<p>Прочтите следующую ситуацию и выберите наиболее подходящие, по Вашему мнению, ответы: </p>
+{% formfield player.end_question_2 label="<strong>За семейным ужином ученик средней школы, который всегда учится только на 'хорошо' и 'отлично', сообщает родителям о том, что получил двойку за контрольную. Как Вы думаете, о чём первым делом спросят его родители? (можно выбрать несколько вариантов ответа)</strong>" %}
 
-{% formfield player.interruption label="Отвлекал ли Вас кто-то в ходе эксперимента?" %}
+{% formfield player.end_question_3 label="<strong>Какую школу Вы окончили?</strong>" %}
 
-{% formfield player.rules_understanding label="Оцените, насколько данный эксперимент был понятен Вам по шкале от 0 (абсолютно непонятно) до 5(полностью понятен)." %}
+{% formfield player.end_question_4 label="<strong>Многие университеты в наши дни пользуются системой рейтингования студентов, ранжируя их по успеваемости. Какая система демонстрации студенческого рейтинга наиболее комфортна для Вас?</strong>" %}
+
+{% formfield player.end_question_5 label="<strong>При просмотре периодического (после каждой сессии) студенческого рейтинга:</strong>" %}
+
+{% formfield player.end_question_6 label="<strong>Отвлекал ли Вас кто-то в ходе эксперимента?</strong>" %}
+
+{% formfield player.end_question_7 label="<strong>Как Вы отвечали на вопросы между раундами?</strong>" %}
+
+{% formfield player.end_question_8 label="<strong>Оцените, насколько данный эксперимент был понятен Вам по шкале от 1 (было абсолютно непонятно) до 5(всё было понятно)</strong>" %}
+
 
 <button class="otree-btn-next btn btn-primary">Перейти к моему выигрышу</button>
 

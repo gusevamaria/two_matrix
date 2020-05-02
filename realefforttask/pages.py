@@ -22,7 +22,8 @@ class WorkPage(Page):
 
 
 class Results(Page):
-    pass
+    form_model = models.Player
+    form_fields = ['rank_disclosure']
 
 
 class Introduction(Page):
@@ -52,21 +53,26 @@ class Contacts(Page):
         return self.subsession.round_number == 1
 
     form_model = 'player'
-    form_fields = ['fname', 'lname', 'otchestvo', 'age', 'city', 'sex']
+    form_fields = ['fname', 'lname', 'otchestvo', 'age', 'city', 'sex', 'phone']
 
 
 class StartAll(Page):
     def is_displayed(self):
         return self.subsession.round_number == 1
 
+# class ExpectedResult(Page):
+#     # def is_displayed(self):
+#     #     return self.subsession.round_number == 1
+#
+#     form_model = 'player'
+#     form_fields = ['expected_result', 'radio_select1', 'radio_select2', 'radio_select3', 'radio_select4']
 
 class ExpectedResult(Page):
     # def is_displayed(self):
     #     return self.subsession.round_number == 1
 
     form_model = 'player'
-    form_fields = ['expected_result', 'radio_select1', 'radio_select2', 'radio_select3', 'radio_select4']
-
+    form_fields = ['expected_result', 'inter_question_1', 'inter_question_2', 'inter_question_3', 'inter_question_4']
 
 class MyWaitPage(WaitPage):
     template_name = 'realefforttask/MyWaitPage.html'
@@ -90,15 +96,16 @@ class Payoffs(Page):
             # 'total_payoff': total_payoff,
         }
 
-    form_model = 'player'
-    form_fields = ['phone']
 
 class EndQuestionnaire(Page):
     def is_displayed(self):
         return self.subsession.round_number == Constants.num_rounds
-
     form_model = models.Player
-    form_fields = ['radio_select_end1', 'radio_select_end2', 'radio_select_end3', 'interruption', 'rules_understanding']
+    form_fields = [
+        'end_question_1', 'end_question_2', 'end_question_3',
+        'end_question_4', 'end_question_5', 'end_question_6',
+        'end_question_7', 'end_question_8'
+        ]
 
 
 page_sequence = [

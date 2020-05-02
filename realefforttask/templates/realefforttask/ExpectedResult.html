@@ -8,15 +8,16 @@
 
 {% block content %}
 
-{% formfield player.expected_result label="Как Вы думаете, какое место Вы заняли в этом раунде (введите номер места от 1 до 8)?" %}
+{% formfield player.expected_result label="<strong>Как Вы думаете, какое место Вы заняли в этом раунде (введите номер места от 1 до 8)?</strong>" %}
 
-{% formfield player.radio_select1 with label="Сколько усилий Вы приложили в этом раунде относительно предыдущего?" %}
+{% formfield player.inter_question_1 with label="<strong>Сколько усилий Вы приложили в этом раунде относительно предыдущего? (если отвечаете на этот вопрос после раунда 1, выберите последний ответ)</strong>" %}
+<br>
+<p>Оцените следующие утверждения:</p>
+{% formfield player.inter_question_2 with label="<strong>В этом раунде я приложил(а) максимальное количество усилий, потому что хочу выиграть деньги.</strong>" %}
 
-{% formfield player.radio_select2 with label="В этом раунде я приложил(а) максимум усилий, так как хочу выиграть деньги." %}
+{% formfield player.inter_question_3 with label="<strong>Для меня неважно выиграть деньги, я прилагаю усилия, потому что хочу улучшать свои результаты от раунда к раунду.</strong>" %}
 
-{% formfield player.radio_select3 with label="В этом раунде я приложил(а) максимум усилий, так как хочу ещё больше улучшить свой результат." %}
-
-{% formfield player.radio_select4 with label="В этом раунде я приложил(а) максимум усилий, потому что в любом соревновании я привык(ла) выкладываться в полную силу." %}
+{% formfield player.inter_question_4 with label="<strong>В этом раунде я не прикладывал(а) особых усилий, поскольку понял(а), что шансов выиграть у меня нет.</strong>" %}
 
 <button class="otree-btn-next btn btn-primary">Далее</button>
 

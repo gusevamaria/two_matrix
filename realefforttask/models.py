@@ -14,7 +14,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-author = 'Guseva Maria'
+author = ''
 
 doc = """
     multi-round real effort task
@@ -23,8 +23,8 @@ doc = """
 
 class Constants(BaseConstants):
     name_in_url = 'realefforttask'
-    players_per_group = 3
-    num_rounds = 3
+    players_per_group = 8
+    num_rounds = 5
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
     task_time = 180
     training_answer_All_correct = c(192)
@@ -134,39 +134,75 @@ class Player(BasePlayer):
         ],
         widget=widgets.RadioSelect
     )
+    # вопрос про разглашение своего места (rank_disclosure) сразу после таблицы с результатами
+    rank_disclosure = models.CharField(
+        choices=['Да, было бы лучше, если бы никто не увидел мой результат',
+                 'Нет, хочу, чтоб все увидели мой результат', 'Не знаю'],
+        widget=widgets.RadioSelect()
+    )
+
+    # вопросы между раундами
     expected_result = models.IntegerField(min=1, max=8)
-    radio_select1 = models.CharField(
-        choices=['Больше', 'Скорее больше', 'Не знаю', 'Скорее меньше', 'Меньше', 'Предыдущего раунда ещё не было'],
+    inter_question_1 = models.CharField(
+        choices=['Больше', 'Не знаю', 'Меньше', 'Предыдущего раунда ещё не было'],
         widget=widgets.RadioSelect()
     )
-    radio_select2 = models.CharField(
-        choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь', 'Полностью не соглашусь'],
-        widget=widgets.RadioSelect()
-    )
-
-    radio_select3 = models.CharField(
-        choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь', 'Полностью не соглашусь'],
-        widget=widgets.RadioSelect()
-    )
-
-    radio_select4 = models.CharField(
+    inter_question_2 = models.CharField(
         choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь',
                  'Полностью не соглашусь'],
+        widget=widgets.RadioSelectHorizontal()
+    )
+
+    inter_question_3 = models.CharField(
+        choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь',
+                 'Полностью не соглашусь'],
+        widget=widgets.RadioSelectHorizontal()
+    )
+
+    inter_question_4 = models.CharField(
+        choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь',
+                 'Полностью не соглашусь'],
+        widget=widgets.RadioSelectHorizontal()
+    )
+
+
+    # вопросы после эксперимента
+    end_question_1 = models.CharField(
+        choices=['Да, меня устраивает перевод на телефон', 'Нет, я хочу получить перевод только на банковскую карту'],
         widget=widgets.RadioSelect()
     )
-    # доработать!!
-    radio_select_end1 = models.CharField(
+    end_question_2 = models.CharField(
+        choices=[
+            'А что получили остальные ученики в классе?',
+            'Как мы можем тебе помочь, чтобы ты понял материал этой контрольной?',
+            'Много ли времени ты уделил подготовке к этой контрольной?',
+            'А учитель хорошо объяснил(а) тему этой контрольной?',
+        ],
+        widget=widgets.RadioSelect()
+    )
+    end_question_3 = models.CharField(
+        choices=['Среднеобразовательная школа', 'Гимназия с физ.мат/гуманитарным уклоном', 'Лицей при университете','Колледж'],
+        widget=widgets.RadioSelect()
+    )
+    end_question_4 = models.CharField(
+        choices=['Личная (я знаю только своё место в общем рейтинге и не вижу тех, кто выше меня и кто ниже меня)','Публичная ( таблица общего рейтинга, где я могу посмотреть место, занимаемое мною и места других студентов)'],
+        widget=widgets.RadioSelect()
+    )
+    end_question_5 = models.CharField(
+        choices=['Я сраниваю свою текущую позицию в общем рейтинге со своей предыдущей позицией', 'Я сраниваю свою текущую позицию в общем рейтинге с позицями других студентов','Я вообще не смотрю рейтинг'],
+        widget=widgets.RadioSelect()
+    )
+    end_question_6 = models.CharField(
+        choices=['Да', 'Нет'],
+        widget=widgets.RadioSelect()
+    )
+    end_question_7 = models.CharField(
+        choices=['Правдиво', 'Наобум'],
+        widget=widgets.RadioSelect()
+    )
+    end_question_8 = models.CharField(
         choices=['1', '2', '3', '4', '5'],
-        widget=widgets.RadioSelect()
-    )
-    radio_select_end2 = models.CharField(
-        choices=['Среднеобразовательная школа', 'Гимназия с физ.мат/гуманитарным уклоном', 'Лицей при университете', 'Колледж'],
-        widget=widgets.RadioSelect()
-    )
-    # доработать!!
-    radio_select_end3 = models.CharField(
-        choices=['1', '2', '3', '4', '5'],
-        widget=widgets.RadioSelect()
+        widget=widgets.RadioSelect(),
     )
     interruption = models.CharField(
         choices=['Да', 'Нет'],

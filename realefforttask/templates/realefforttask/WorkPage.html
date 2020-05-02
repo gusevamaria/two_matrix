@@ -10,10 +10,10 @@
     <div class="task-container mb-3">{{ player.get_or_create_task.html_body|safe }}</div>
     <div>Ваш ответ:</div>
     <input type="text" id="answer" class="offer" style="background-color: white" required>
-    <button class="answer btn btn-primary" type="button" data-feedback="false">Answer</button>
+    <button class="answer btn btn-primary" type="button" data-feedback="false">Ответ</button>
     <br/><br/>
     <p> Всего ответов: <span id="num_tasks_total">{{ player.num_tasks_total }}</span></p>
-    <p> Правильных ответов: <span id="num_tasks_correct"> {{ player.num_tasks_correct }}</span></p>
+    <p> Правильных ответов: <span id="num_tasks_correct"> {{ player.num_tasks_correct }}</span> </p>
     <div><span id="feedback"> </span></div>
 
     <p></p>
@@ -22,7 +22,6 @@
         {% csrf_token %}
         {{ form }}
     </form>
-
 {% endblock %}
 
 {% block scripts %}
@@ -41,19 +40,21 @@
 
 {% block styles %}
     <style type="text/css">
+        span.otree-timer__time-left{
+            color:#f00;
+            font-size:1.4em;
+        }
         .otree-title {
             background-color: steelblue;
             color: white;
             margin: 10px 0 10px 0;
             padding: 20px;
         }
-
         .otree-timer {
             background: lightsteelblue;
             color: white;
             border-color: white;
         }
-
         .otree-body {
             text-indent: each-line;
         }
@@ -75,9 +76,7 @@
             border: steelblue;
             background-color: #ecf2f9;
             align-content: center;
-
         }
-
         .offer {
             background-color: whitesmoke;
             color: navy;
@@ -87,14 +86,11 @@
             font-weight: bold;
             margin: 1px;
         }
-
         .otree-btn-next {
             background-color: steelblue;
             color: white;
-            padding: 5px 10px 5px 10px;
-
+            padding: 5px 15px 5px 15px;
         }
-
         h2, h3, h4, h5, h6 {
             font-weight: bolder;
             color: #24435c;
@@ -102,6 +98,8 @@
         label{
             display:none;
         }
-
+        td {
+            text-align:center !important;
+        }
     </style>
 {% endblock %}
