@@ -23,8 +23,8 @@ doc = """
 
 class Constants(BaseConstants):
     name_in_url = 'realefforttask'
-    players_per_group = 4
-    num_rounds = 2
+    players_per_group = 8
+    num_rounds = 5
     # this parameter defines how much time a user will stay on a RET page per round (in seconds)
     task_time = 180
     training_answer_All_correct = c(192)
@@ -150,19 +150,19 @@ class Player(BasePlayer):
     inter_question_2 = models.CharField(
         choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь',
                  'Полностью не соглашусь'],
-        widget=widgets.RadioSelectHorizontal()
+        widget=widgets.RadioSelect()
     )
 
     inter_question_3 = models.CharField(
         choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь',
                  'Полностью не соглашусь'],
-        widget=widgets.RadioSelectHorizontal()
+        widget=widgets.RadioSelect()
     )
 
     inter_question_4 = models.CharField(
         choices=['Полностью соглашусь', 'Скорее соглашусь, чем нет', 'Не знаю', 'Скорее не соглашусь, чем соглашусь',
                  'Полностью не соглашусь'],
-        widget=widgets.RadioSelectHorizontal()
+        widget=widgets.RadioSelect()
     )
 
 
