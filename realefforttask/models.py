@@ -137,14 +137,14 @@ class Player(BasePlayer):
     # вопрос про разглашение своего места (rank_disclosure) сразу после таблицы с результатами
     rank_disclosure = models.CharField(
         choices=['Да, было бы лучше, если бы никто не увидел мой результат',
-                 'Нет, хочу, чтоб все увидели мой результат', 'Не знаю'],
+                 'Нет, хочу, чтоб все увидели мой результат', 'Мне всё равно'],
         widget=widgets.RadioSelect()
     )
 
     # вопросы между раундами
     expected_result = models.IntegerField(min=1, max=8)
     inter_question_1 = models.CharField(
-        choices=['Больше', 'Не знаю', 'Меньше', 'Предыдущего раунда ещё не было'],
+        choices=['Больше', 'Столько же', 'Меньше', 'Предыдущего раунда ещё не было'],
         widget=widgets.RadioSelect()
     )
     inter_question_2 = models.CharField(
