@@ -118,7 +118,7 @@ page_sequence = [
     WorkPage,
     ExpectedResult,
     WaitForResults,
-    Results,
+    #Results,
     EndQuestionnaire,
     Payoffs,
 ]
